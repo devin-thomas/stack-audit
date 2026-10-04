@@ -1,0 +1,24 @@
+{
+  "name": "stack-audit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite --port 5188",
+    "build": "vite build",
+    "preview": "vite preview --port 5188"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "private": "true",
+  "dependencies": {
+    "@uppercut-labs/dreamcast-backgrounds": "^0.1.0",
+    "motion": "^14.0.0"
+  },
+  "devDependencies": {
+    "vite": "^8.3.2"
+  }
+}

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Devin Thomas — Stack Audits</title>
+  <meta name="description" content="Cut a $250+/month SaaS bill to under $50.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div id="world" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"></div>
+
+  <header class="hero">
+    <p class="name">Devin Thomas</p>
+    <h1>Your SaaS bill,<br><span class="from">$250+</span> → <span class="to">under $50</span> a month.</h1>
+    <p class="lede">I audit your tech stack, replace what's overpriced, and hand you a setup that does the same job.</p>
+    <a class="cta" href="mailto:build@devthomas.site?subject=Stack%20audit">Commission an audit</a>
+  </header>
+
+  <section class="ledger" id="ledger" aria-labelledby="ledger-title">
+    <div class="ledger-sticky">
+      <div class="panel">
+        <h2 id="ledger-title">Example stack</h2>
+
+        <ol class="rows" id="rows"></ol>
+
+        <div class="totals">
+          <div class="meter" data-kind="spend">
+            <div class="meter-head">
+              <span>Monthly</span>
+              <strong id="spend" aria-live="off">$268</strong>
+            </div>
+            <div class="track"><i id="spend-bar"></i><b class="target"></b></div>
+          </div>
+          <div class="meter" data-kind="saved">
+            <div class="meter-head">
+              <span>Saved per year</span>
+              <strong id="saved">$0</strong>
+            </div>
+            <div class="track"><i id="saved-bar"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps" aria-label="How it works">
+    <article>
+      <h3>Audit</h3>
+      <p>Send your invoices or a list of tools. I map what each one actually does for you.</p>
+    </article>
+    <article>
+      <h3>Swap</h3>
+      <p>I set up cheaper or self-hosted replacements and move your data over.</p>
+    </article>
+    <article>
+      <h3>Hand off</h3>
+      <p>You get a written runbook and a stack you can cancel the old plans against.</p>
+    </article>
+  </section>
+
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">About this site</h2>
+    <p>Designed and built by Devin Thomas, hand-coded instead of a site builder template.</p>
+    <ul>
+      <li>The 3D world behind the page is <a href="https://www.npmjs.com/package/@uppercut-labs/dreamcast-backgrounds">@uppercut-labs/dreamcast-backgrounds</a>, a package I made and published to npm.</li>
+      <li>The bars are tied to scroll position with <a href="https://motion.dev">Motion</a>.</li>
+      <li>Hosted free on Cloudflare Pages. <a href="https://github.com/devin-thomas/stack-audit">Source on GitHub</a>.</li>
+    </ul>
+  </section>
+
+  <footer class="contact">
+    <h2>Commissions</h2>
+    <a class="mail" href="mailto:build@devthomas.site?subject=Stack%20audit">build@devthomas.site</a>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

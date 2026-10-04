@@ -1,0 +1,169 @@
+:root {
+  --ink: #eef3ff;
+  --muted: #a8b3cf;
+  --panel: rgba(10, 14, 32, 0.72);
+  --line: rgba(255, 255, 255, 0.12);
+  --track: rgba(255, 255, 255, 0.08);
+  --spend: #ff6a3d;
+  --save: #3dffb0;
+  --accent: #6ab8ff;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { background: #05060f; }
+body {
+  margin: 0;
+  color: var(--ink);
+  font: 400 17px/1.55 Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#world { position: fixed; inset: 0; z-index: -2; }
+.veil {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(5, 6, 15, 0.75), rgba(5, 6, 15, 0) 65%),
+    linear-gradient(180deg, rgba(5, 6, 15, 0.2), rgba(5, 6, 15, 0.65) 75%);
+}
+
+h1, h2, h3 { font-family: "Chakra Petch", sans-serif; font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+
+/* Hero */
+.hero {
+  min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 clamp(16px, 6vw, 96px);
+  max-width: 1100px;
+}
+.name {
+  font: 600 15px "IBM Plex Mono", monospace;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent); margin: 0 0 18px;
+}
+h1 { font-size: clamp(38px, 7vw, 84px); line-height: 1.02; text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); }
+h1 .from { color: var(--spend); text-decoration: line-through; text-decoration-thickness: 0.08em; }
+h1 .to { color: var(--save); }
+.lede { max-width: 34em; color: #d3dbef; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9); font-size: clamp(17px, 2vw, 20px); margin: 24px 0 32px; }
+.cta {
+  align-self: flex-start;
+  font: 700 17px "Chakra Petch", sans-serif;
+  color: #05060f; background: var(--save);
+  padding: 14px 26px; border-radius: 999px; text-decoration: none;
+  box-shadow: 0 0 0 0 rgba(61, 255, 176, 0.5);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.cta:hover { box-shadow: 0 0 32px 4px rgba(61, 255, 176, 0.45); transform: translateY(-2px); }
+.cta:focus-visible, .mail:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+
+/* Ledger: tall section, sticky panel, bars scrubbed by scroll */
+.ledger { height: 320vh; position: relative; }
+.ledger-sticky {
+  position: sticky; top: 0; height: 100svh;
+  display: grid; place-items: center;
+  padding: 16px;
+}
+.panel {
+  width: min(760px, 100%);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: clamp(18px, 4vw, 36px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+.panel h2 { font-size: 22px; margin-bottom: 18px; }
+
+.rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.rows li {
+  display: grid;
+  grid-template-columns: minmax(130px, 190px) 1fr 56px;
+  align-items: center; gap: 14px;
+}
+.row-label { display: grid; position: relative; min-height: 2.6em; align-content: center; }
+.row-label span { grid-area: 1 / 1; font-size: 15px; line-height: 1.25; }
+.tool { opacity: calc(1 - var(--swap, 0)); }
+.swap { opacity: var(--swap, 0); color: var(--save); }
+.cost { font: 600 15px "IBM Plex Mono", monospace; text-align: right; font-variant-numeric: tabular-nums; }
+
+.track {
+  position: relative; height: 10px; border-radius: 999px;
+  background: var(--track); overflow: hidden;
+}
+.track i {
+  position: absolute; inset: 0; border-radius: inherit;
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--spend), #ffb03d);
+  box-shadow: 0 0 14px rgba(255, 106, 61, 0.55);
+}
+.rows li.is-cut .track i { background: var(--save); box-shadow: 0 0 14px rgba(61, 255, 176, 0.5); }
+
+.totals { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); display: grid; gap: 18px; }
+.meter-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.meter-head span { color: var(--muted); font-size: 15px; }
+.meter-head strong { font: 700 clamp(26px, 4vw, 36px) "Chakra Petch", sans-serif; font-variant-numeric: tabular-nums; }
+.meter .track { height: 16px; overflow: visible; }
+.meter[data-kind="spend"] strong { color: var(--spend); }
+.meter[data-kind="spend"] .track.under i { background: var(--save); box-shadow: 0 0 20px rgba(61, 255, 176, 0.6); }
+.meter[data-kind="spend"]:has(.under) strong { color: var(--save); }
+.meter[data-kind="saved"] strong { color: var(--save); }
+.meter[data-kind="saved"] .track i { background: linear-gradient(90deg, #1fb57c, var(--save)); box-shadow: 0 0 18px rgba(61, 255, 176, 0.5); }
+.target {
+  position: absolute; top: -6px; bottom: -6px; width: 2px;
+  background: var(--ink); opacity: 0.8; border-radius: 2px;
+}
+.target::after {
+  content: "$50"; position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
+  font: 600 12px "IBM Plex Mono", monospace; color: var(--ink);
+}
+
+/* Steps */
+.steps {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px; padding: 12vh clamp(16px, 6vw, 96px);
+  max-width: 1200px; margin: 0 auto;
+}
+.steps article {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 18px;
+  padding: 24px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.steps h3 { font-size: 24px; color: var(--accent); margin-bottom: 8px; }
+.steps p { margin: 0; color: var(--muted); }
+
+/* About */
+.about {
+  max-width: 760px; margin: 0 auto 8vh; padding: clamp(20px, 4vw, 32px);
+  background: var(--panel); border: 1px solid var(--line); border-radius: 18px;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+@media (max-width: 792px) { .about { margin-inline: 16px; } }
+.about h2 { font-size: 24px; margin-bottom: 10px; }
+.about p { margin: 0 0 12px; color: var(--muted); }
+.about ul { margin: 0; padding-left: 1.2em; color: var(--muted); display: grid; gap: 6px; }
+.about a { color: var(--accent); }
+.about a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Contact */
+.contact {
+  min-height: 70svh; display: grid; place-content: center; text-align: center; gap: 14px;
+  padding: 0 16px 10vh;
+}
+.contact h2 { font-size: clamp(30px, 5vw, 52px); }
+.mail {
+  font: 700 clamp(20px, 4.5vw, 40px) "Chakra Petch", sans-serif;
+  color: var(--save); text-decoration: none; overflow-wrap: anywhere;
+  text-shadow: 0 0 24px rgba(61, 255, 176, 0.45);
+}
+.mail:hover { text-decoration: underline; }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .rows li { grid-template-columns: 1fr 52px; gap: 6px 10px; }
+  .rows li .track { grid-column: 1 / -1; grid-row: 2; }
+  .rows { gap: 10px; }
+  .row-label { min-height: 1.3em; }
+  .row-label span { font-size: 14px; }
+  .panel h2 { margin-bottom: 12px; }
+  .totals { margin-top: 16px; padding-top: 16px; gap: 14px; }
+}
